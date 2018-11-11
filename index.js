@@ -7,26 +7,26 @@ $(document).ready(function () {
     // debugger;
     var $squareClicked = $(this);
     if ($squareClicked.text() === "" && play) {
+      var nextPlayer = "";
+
       if (player === "1") {
         $squareClicked.append("X");
-        player = "2";
+        nextPlayer = "2";
       } else {
         $squareClicked.append("O");
-        player = "1";
+        nextPlayer = "1";
       }
 
       move = move + 1;
 
       var winStatus = checkForWinner();
-      if (winStatus !== -1) {
-        if (winStatus === "X") {
-          alert("Player 1 wins!");
-        } else {
-          alert("Player 2 wins!");
-        }
+      if (winStatus) {
+        alert("Player " + player + " is the winner!");
 
         play = false;
       }
+
+      player = nextPlayer;
     }
   });
 
@@ -43,40 +43,40 @@ $(document).ready(function () {
 
     // check rows
     if (space1 !== "" && (space1 === space2) && (space2 === space3)) {
-      return space1;
+      return true
     }
     
     if (space4 !== "" && (space4 === space5) && (space5 === space6)) {
-      return space4;
+      return true;
     }
     
     if (space7 !== "" && (space7 === space8) && (space8 === space9)) {
-      return space9;
+      return true;
     }
 
     // check columns
     if (space1 !== "" && (space1 === space4) && (space4 === space7)) {
-      return space1;
+      return true;
     }
 
     if (space2 !== "" && (space2 === space5) && (space5 === space8)) {
-      return space2;
+      return true;
     }
 
     if (space3 !== "" && (space3 === space6) && (space6 === space9)) {
-      return space3;
+      return true;
     }
 
     // check diagonals
     if (space1 !== "" && (space1 === space5) && (space5 === space9)) {
-      return space1;
+      return true;
     }
 
     if (space3 !== "" && (space3 === space5) && (space5 === space7)) {
-      return space3;
+      return true;
     }
 
     // no winner
-    return -1;
+    return false;
   }
 });
